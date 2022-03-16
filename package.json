@@ -1,0 +1,20 @@
+{
+  "name": "nextjs-ssr-exp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Scott Becker <becker.scott@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "workspaces": [
+    "app_a",
+    "app_b"
+  ],
+  "scripts": {
+    "start": "concurrently \"cd app_a; npm run dev\"   \"cd app_b; npm run dev\"",
+    "build": "concurrently \"cd app_a; npm run build\" \"cd app_b; npm run build\"",
+    "serve": "concurrently \"cd app_a; npm run start\" \"cd app_b; npm run start\""
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
