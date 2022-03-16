@@ -9,6 +9,7 @@ import {
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
+    // could also be "close"
     ctx?.res?.on("finish", () => {
       revalidate().then(() => {
         // choose any additional steps you want to take.
