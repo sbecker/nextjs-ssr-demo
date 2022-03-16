@@ -9,7 +9,7 @@ import {
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    ctx.res.on("finish", () => {
+    ctx?.res?.on("finish", () => {
       revalidate().then(() => {
         // choose any additional steps you want to take.
         // the promise will only resolve if remotes have changed and a hot reload needs to happen
