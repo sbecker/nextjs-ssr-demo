@@ -18,7 +18,7 @@ class MyDocument extends Document {
           setTimeout(() => {
             // useful for dev or if you want to cold start lambdas.
             process.exit(1);
-          }, 50);
+          }, 500);
         }
       });
     });
