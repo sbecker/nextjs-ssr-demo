@@ -10,18 +10,20 @@ import {
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     // could also be "close"
-    ctx?.res?.on("finish", () => {
-      revalidate().then(() => {
-        // choose any additional steps you want to take.
-        // the promise will only resolve if remotes have changed and a hot reload needs to happen
-        if (process.env.NODE_ENV === "development") {
-          setTimeout(() => {
-            // useful for dev or if you want to cold start lambdas.
-            process.exit(1);
-          }, 500);
-        }
+    if (ctx && ctx.res && ctx.res.on) {
+      ctx.res.on("finish", () => {
+        revalidate().then(() => {
+          // choose any additional steps you want to take.
+          // the promise will only resolve if remotes have changed and a hot reload needs to happen
+          if (process.env.NODE_ENV === "development") {
+            setTimeout(() => {
+              // useful for dev or if you want to cold start lambdas.
+              process.exit(1);
+            }, 500);
+          }
+        });
       });
-    });
+    }
     const remotes = await flushChunks(process.env.REMOTES);
     const initialProps = await Document.getInitialProps(ctx);
     return {
